@@ -10,7 +10,6 @@ from webtzite.connector import ConnectorBase
 from bson.objectid import ObjectId
 from webtzite import mapi_func
 from django.http import HttpResponse
-from test_site.settings import STATIC_ROOT
 
 class Connector(ConnectorBase):
     def connect(self, **kwargs):
@@ -32,7 +31,7 @@ def get_endpoint():
 
 def index(request):
     return HttpResponse(
-        open(os.path.join(STATIC_ROOT, 'index.html'), 'r').read()
+        open(os.path.join('/var/www/static_dev', 'index.html'), 'r').read()
     )
 
 @mapi_func(supported_methods=["GET"], requires_api_key=True)
