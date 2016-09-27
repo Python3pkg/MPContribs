@@ -1,6 +1,5 @@
 """This module provides the views for the rest interface."""
 
-import os
 from bson.json_util import loads
 from django.core.exceptions import PermissionDenied
 from django.shortcuts import render_to_response
@@ -9,7 +8,7 @@ from django.contrib.auth.models import Group
 from webtzite.connector import ConnectorBase
 from bson.objectid import ObjectId
 from webtzite import mapi_func
-from django.http import HttpResponse
+from django.shortcuts import redirect
 from materials_django.settings import STATIC_ROOT
 
 class Connector(ConnectorBase):
@@ -31,9 +30,7 @@ def get_endpoint():
     return reverse('mpcontribs_rest_index')[:-1]
 
 def index(request):
-    return HttpResponse(
-        open(os.path.join(STATIC_ROOT, 'index.html'), 'r').read()
-    )
+    return redirect('/static/apidoc/mpcontribs/index.html')
 
 @mapi_func(supported_methods=["GET"], requires_api_key=True)
 def check_contributor(request, db_type=None, mdb=None):
