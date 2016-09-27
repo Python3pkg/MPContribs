@@ -1,4 +1,7 @@
 {% extends "home/templates/base/header_footer.html" %}
+{% load staticfiles %}
+{% load require %}
+
 {% block content %}
 {% if alert %}
 <div class="alert alert-warning alert-dismissible" role="alert">
@@ -8,6 +11,8 @@
   {{ alert }}
 </div>
 {% endif %}
+<link rel="stylesheet" href='{% static "components/bootstrap/dist/css/bootstrap.css" %}' charset="utf-8">
+<link rel="stylesheet" href='{% static "components/chosen/chosen.css" %}' charset="utf-8">
 <div class="container">
   <div class="row">
     Explore contributed
@@ -46,7 +51,12 @@
     {% endfor %}
   </div>
   {% endif %}
-  <script>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block page_script %}
+  require(["chosen"], function() {
     var options = {{ options|safe }};
     var selection = {{ selection|safe }};
     for (field in options) {
@@ -84,7 +94,5 @@
         sel_elem.value = JSON.stringify(selection[fld]);
       });
     }
-  </script>
-  {% endif %}
-</div>
+  });
 {% endblock %}

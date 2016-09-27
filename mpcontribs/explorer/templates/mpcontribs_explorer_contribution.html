@@ -1,11 +1,20 @@
 {% extends "mpcontribs_explorer_detail.html" %}
 {% load staticfiles %}
+{% load require %}
 {% if mp_cat_id in material %}
 {% block title %} {{ material.detail_id }} {{ material.mp_cat_id }} {% endblock %}
 {% block detail_id %}{{ material.detail_id }}{% endblock %}
 {% block detail_type %}{{ material.detail_id }}{% endblock %}
 {% block formula %}{{ material.mp_cat_id }}{% endblock %}
 {% block detail_content %}
+<link rel="stylesheet" href='{% static "components/bootstrap/dist/css/bootstrap.css" %}' charset="utf-8">
+<link rel="stylesheet" href='{% static "components/json-human/css/json.human.css" %}' charset="utf-8">
+<link rel="stylesheet" href='{% static "components/backgrid/lib/backgrid.css" %}' charset="utf-8">
 <div>{{ material.nb|safe }}</div>
 {% endblock detail_content %}
+{% block page_script %}
+  require(["json.human", "plotly", "backgrid"], function() {
+    {{ material.nb_js|safe }}
+  });
+{% endblock %}
 {% endif %}
